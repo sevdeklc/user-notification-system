@@ -26,6 +26,8 @@ public class UserService {
 
     private final UserMapper userMapper;
 
+    private final UserProducer userProducer;
+
     public Page<UserResponse> getAllUsers(Pageable pageable) {
         return userRepository.findAll(pageable).map(userMapper::userToUserDTO);
     }
@@ -41,6 +43,9 @@ public class UserService {
             User savedUser = userRepository.save(user);
 
             LOG.info("Successfully added user with ID: {}", savedUser.getId());
+
+            String message = "New user created with ID: " + savedUser.getId() + ", Username: " + savedUser.getFirstName();
+            userProducer.sendMessage(message);
 
             return userMapper.userToUserDTO(savedUser);
         } catch (Exception e) {
