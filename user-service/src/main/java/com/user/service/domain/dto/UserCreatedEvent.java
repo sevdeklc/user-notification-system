@@ -1,25 +1,18 @@
-package com.user.service.domain.dto.response;
+package com.user.service.domain.dto;
 
 import com.user.service.domain.enums.Gender;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class UserResponse {
+public class UserCreatedEvent {
 
-    private Long id;
-
+    private String id;
     private String firstName;
-
     private String lastName;
-
     private String email;
-
     private Gender gender;
-
 }

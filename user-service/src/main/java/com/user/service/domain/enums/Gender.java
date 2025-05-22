@@ -1,18 +1,21 @@
 package com.user.service.domain.enums;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-@Getter
 public enum Gender {
 
-    MALE("MALE"),
-    FEMALE("FEMALE"),
-    UNSPECIFIED("UNSPECIFIED");
+    MALE,
+    FEMALE,
+    UNSPECIFIED;
 
-    private final String value;
-
-    Gender(String value) {
-        this.value = value;
+    @JsonCreator
+    public static Gender fromString(String value) {
+        return value == null ? null : Gender.valueOf(value.toUpperCase());
     }
 
+    @JsonValue
+    public String toValue() {
+        return this.name();
+    }
 }
