@@ -2,6 +2,8 @@ package com.user.service.controller;
 
 import com.user.service.domain.dto.UserCreatedEvent;
 import com.user.service.kafka.KafkaProducer;
+import com.user.service.service.UserService;
+import com.user.service.util.api.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,16 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    private final KafkaProducer kafkaProducer;
+    private final UserService userService;
 
-    public UserController(KafkaProducer kafkaProducer) {
-        this.kafkaProducer = kafkaProducer;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> addUser(@RequestBody UserCreatedEvent userCreatedEvent) {
-        kafkaProducer.sendUserCreatedEvent(userCreatedEvent);
-        return new ResponseEntity<>("User creation event sent to Kafka.", HttpStatus.OK);
+    public ApiResponse<String> addUser(@RequestBody UserCreatedEvent userCreatedEvent) {
+        return userService.createUser(userCreatedEvent);
     }
 
 }
