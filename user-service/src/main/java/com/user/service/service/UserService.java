@@ -4,9 +4,12 @@ import com.user.service.domain.dto.UserCreatedEvent;
 import com.user.service.kafka.KafkaProducer;
 import com.user.service.util.api.ApiResponse;
 import com.user.service.util.api.ApiResult;
-import org.apache.kafka.common.protocol.types.Field;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class UserService {
 
@@ -19,6 +22,7 @@ public class UserService {
     public ApiResponse<String> createUser(UserCreatedEvent event) {
         try {
             kafkaProducer.sendUserCreatedEvent(event);
+            log.info("User created ** sevde");
             return new ApiResponse<>("OK");
         } catch (Exception e) {
             ApiResult errorResult = new ApiResult(1, "Failed to send Kafka message: " + e.getMessage());

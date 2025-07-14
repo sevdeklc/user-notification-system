@@ -1,12 +1,9 @@
 package com.user.service.controller;
 
 import com.user.service.domain.dto.UserCreatedEvent;
-import com.user.service.kafka.KafkaProducer;
 import com.user.service.service.UserService;
 import com.user.service.util.api.ApiResponse;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
